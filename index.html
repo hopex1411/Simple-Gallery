@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Simple Gallery</title>
+</head>
+
+<body>
+	<div id="wrapper">
+		<div class="center still">
+			<img src="images/skatepark1.jpg" alt="stills" id="photoseries">
+		</div>
+		<div class="center" id="thumbs">
+			<img src="images/skatepark1.jpg" alt="still" onclick="still(1);">
+			<img src="images/skatepark2.jpg" alt="still" onclick="still(2);">
+			<img src="images/skatepark3.jpg" alt="still" onclick="still(3);">
+			<img src="images/skatepark4.jpg" alt="still" onclick="still(4);">
+			<img src="images/skatepark5.jpg" alt="still" onclick="still(5);">
+			<img src="images/skatepark6.jpg" alt="still" onclick="still(6);">
+			<img src="images/skatepark7.jpg" alt="still" onclick="still(7);">
+			<img src="images/skatepark8.jpg" alt="still" onclick="still(8);">
+		</div>
+		<div class="center" id="arrows">
+			<img src="images/arrow_left.png" alt="previous" onclick="previous();">
+			<img src="images/arrow_right.png" alt="next" onclick="next();">
+		</div>
+	</div>
+	<script type="text/javascript">
+		var index = 1;
+		function next() {
+			if (index < 8) {
+				index++;
+			} else {
+				index = 1;
+			}
+			document.getElementById("photoseries").setAttribute("src", "images/skatepark" + index + ".jpg");
+			highlight();
+		}
+		function previous() {
+			if (index > 1) {
+				index--;
+			} else {
+				index = 8;
+			}
+			document.getElementById("photoseries").setAttribute("src", "images/skatepark" + index + ".jpg");
+			highlight();
+		}
+		function still(tal) {
+			document.getElementById("photoseries").setAttribute("src", "images/skatepark" + tal + ".jpg");
+			index = tal;
+			highlight();
+		}
+		function highlight() {
+			var thumbListe = document.getElementById("thumbs").getElementsByTagName("img");
+			for (i = 0; i < thumbListe.length; i++) {
+				thumbListe[i].style.borderColor = "#666";
+			}
+			var aktuelThumb = thumbListe[index - 1];
+			aktuelThumb.style.borderColor = "#ff0000";
+		}
+		document.onkeydown = function (e) {
+			if (e.keyCode == '37') {
+				previous();
+			} else if (e.keyCode == '39') {
+				next();
+			}
+		}
+	</script>
+</body>
+<style>
+	* {
+		box-sizing: border-box;
+	}
+
+	html {
+		overflow-y: scroll;
+		-moz-scrollbars: vertical;
+		background-color: lavender;
+	}
+
+	#wrapper {
+		max-width: 1280px;
+		margin: 0 auto;
+	}
+
+	img {
+		border: 1px solid #666;
+		padding: 0.3em;
+		max-width: 100%;
+		height: auto;
+	}
+
+	.center {
+		text-align: center;
+	}
+
+	.still {
+		max-width: 700px;
+		margin: 0 auto;
+	}
+
+	#thumbs img {
+		width: 70px;
+	}
+
+	#arrows img {
+		width: 24px;
+		border: none;
+		cursor: pointer;
+	}
+
+	#thumbs {
+		cursor: pointer;
+	}
+
+	@media screen and (max-width:480px) {
+		#arrows {
+			display: none;
+		}
+	}
+</style>
+
+</html>
